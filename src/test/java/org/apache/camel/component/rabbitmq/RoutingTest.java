@@ -173,13 +173,6 @@ public class RoutingTest extends CamelTestSupport {
                     .to(baseURI + "&routingKey=error&exchangeType=direct");
 
                 from("direct:start_warn")
-                    .process(new Processor() {
-                        public void process(Exchange exchange) throws Exception {
-                            if (Math.random() > 0.5) {
-                                throw new Exception("ABORT");
-                            }
-                        }
-                    })
                     .setBody().simple("${in.body}")
                     .to(baseURI + "&routingKey=warn&exchangeType=direct");
             }

@@ -60,9 +60,9 @@ public class RabbitMQConsumer extends DefaultConsumer {
 
         RabbitMQConfiguration config = endpoint.getConfiguration();
 
-        System.out.println("========== Consumer ============");
-        System.out.println(config.toString());
-        System.out.println("================================");
+        LOG.trace("========== Consumer ============");
+        LOG.trace(config.toString());
+        LOG.trace("================================");
 
         Channel channel = createChannel();
         if (!config.getExchange().isEmpty()) {
@@ -82,7 +82,7 @@ public class RabbitMQConsumer extends DefaultConsumer {
     @Override
     protected void doStart() throws Exception {
         super.doStart();
-        System.out.println("STARTING");
+        LOG.trace("STARTING");
         for (int i = 0; i < endpoint.getConfiguration().getConcurrentConsumers(); i++) {
             executor.execute(myConsumer);
         }
@@ -142,7 +142,7 @@ public class RabbitMQConsumer extends DefaultConsumer {
         @Override
         public void run() {
             try {
-                System.out.println("Starting thread: " + Thread.currentThread().getName());
+            	LOG.trace("Starting thread: " + Thread.currentThread().getName());
                 channel.basicConsume(queueName, endpoint.getConfiguration().isAutoAck(), rabbitMQConsumer);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -189,7 +189,7 @@ public class RabbitMQConsumer extends DefaultConsumer {
                     replyChannel.basicAck(tag, false);
                 }
             } catch (Exception e) {
-                System.out.println(e);
+            	LOG.error("Error on completion of consuming from RabbitMQ!",e);
                 e.printStackTrace();
             }
 
@@ -197,7 +197,7 @@ public class RabbitMQConsumer extends DefaultConsumer {
 
         @Override
         public void onFailure(Exchange exchange) {
-            System.out.println("^^^^^^^^^^^^^FAIL");
+            LOG.warn("^^^^^^^^^^^^^FAIL");
         }
     }
 

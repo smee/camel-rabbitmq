@@ -84,7 +84,7 @@ public class RabbitMQConfigurationTest extends CamelTestSupport {
     @Test
     public void createEndpointWithMultipleOptions2() throws Exception {
         RabbitMQComponent component = new RabbitMQComponent(context);
-        RabbitMQEndpoint endpoint = (RabbitMQEndpoint) component.createEndpoint(BASIC_URI + "?durable=true&autoDelete=true&prefetchCount=93");
+        RabbitMQEndpoint endpoint = (RabbitMQEndpoint) component.createEndpoint(BASIC_URI + "?durable=true&autoDelete=true&prefetch=93");
 
         RabbitMQConfiguration config = endpoint.getConfiguration();
         assertTrue(config.getDurable());

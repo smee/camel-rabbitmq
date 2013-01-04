@@ -151,9 +151,9 @@ public class RabbitMQProducer extends DefaultProducer implements AsyncProcessor 
 
             channel = connection.createChannel();
 
-            System.out.println("-------------- Producer -----------------");
-            System.out.println(config.toString());
-            System.out.println("-----------------------------------------");
+            LOG.trace("-------------- Producer -----------------");
+            LOG.trace(config.toString());
+            LOG.trace("-----------------------------------------");
 
             if (!config.getExchange().isEmpty()) {
                 channel.exchangeDeclare(config.getExchange(), config.getExchangeType());

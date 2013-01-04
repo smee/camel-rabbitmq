@@ -38,7 +38,6 @@ public class SimpleQueueTest extends CamelTestSupport {
     @Test
     public void noSubscription() throws Exception {
         result.expectedMessageCount(1);
-        Thread.sleep(9999);
 
         Exchange exchange = template.send("direct:start", ExchangePattern.InOnly, new Processor() {
             public void process(Exchange exchange) throws Exception {
